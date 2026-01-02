@@ -1,55 +1,51 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Todo App Evolution Constitution
+<!-- Evolution of Todo – 5-Phase Spec-Driven Development Hackathon -->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Spec-Driven Development
+All features must be implemented strictly via Spec-Driven methodology; no manual coding allowed. Every implementation must be traceable to a specification document.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Incremental Evolution
+Features must progress from Basic → Intermediate → Advanced levels across the 5 phases. Each phase must build upon the previous phase with clear progression milestones.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. AI Integration
+Conversational AI must manage the Todo list intelligently in Phases III-V. The AI chatbot must maintain state and manage tasks via conversational interface.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Cloud-Native Deployment
+All deployments must follow best practices for Kubernetes and cloud orchestration. All deployments must pass local and cloud validation checks.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Reproducibility
+All Specs, Markdown Constitutions, and Claude Code outputs must be fully traceable and reproducible. Full traceability of all Specs, Markdown Constitutions, and implementation outputs.
 
-### [PRINCIPLE_6_NAME]
+### VI. Quality Assurance
+All phases must pass internal QA for feature correctness. AI chatbot correctly interprets and executes natural language commands.
 
+## Technology Stack Requirements
+<!-- Technology stack requirements, compliance standards, deployment policies, etc. -->
 
-[PRINCIPLE__DESCRIPTION]
+Phase I: Python, Claude Code, Spec-Kit Plus
+Phase II: Next.js, FastAPI, SQLModel, Neon DB
+Phase III: OpenAI ChatKit, Agents SDK, Official MCP SDK
+Phase IV: Docker, Minikube, Helm, kubectl-ai, kagent
+Phase V: Kafka, Dapr, DigitalOcean DOKS
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+All Specs and Markdown documents must be in English.
+Deployment must pass local and cloud validation checks and meet performance standards.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Development Workflow
+<!-- Development Workflow, Review Process, Quality Gates, etc. -->
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+Claude Code generates fully functional Todo implementations from Specs.
+Local and cloud deployments run without errors and meet performance standards.
+Completion of all 5 phases within hackathon deadlines.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+<!-- Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+All implementations must follow the specified technology stacks for each phase.
+All Specs and Markdown documents must be in English.
+All development must follow the 5-phase progression model.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
+**Version**: 1.0.0 | **Ratified**: 2026-01-02 | **Last Amended**: 2026-01-02
 <!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
