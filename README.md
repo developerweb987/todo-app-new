@@ -1,79 +1,100 @@
-# Todo In-Memory Python Console App
+# Full-Stack Web Todo Application
 
-A simple console-based todo application written in Python that stores tasks in memory.
+A secure, multi-user todo application with persistent storage and JWT authentication.
 
 ## Features
 
-- Add tasks with ID, title, description, and status
-- Delete tasks by ID
-- Update task title/description by ID
-- View task list with status
+- User registration and authentication
+- Secure JWT-based authentication
+- Create, read, update, and delete personal todo tasks
 - Mark tasks as complete/incomplete
+- Data isolation between users
+- Responsive web interface
 
-## Requirements
+## Tech Stack
 
-- Python 3.13 or higher
+### Backend
+- **Framework**: FastAPI (Python)
+- **ORM**: SQLModel
+- **Database**: PostgreSQL (Neon Serverless)
+- **Authentication**: JWT tokens with middleware
 
-## Installation
+### Frontend
+- **Framework**: Next.js 14+ with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **API Client**: Axios with interceptors
 
-1. Clone the repository
-2. Navigate to the `src` directory
-3. Run the application using Python's module execution
+## Setup Instructions
 
-## Usage
+### Prerequisites
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL-compatible database (Neon Serverless recommended)
 
-To run the application:
+### Backend Setup
+1. Navigate to the backend directory: `cd backend`
+2. Install dependencies: `pip install -r requirements.txt`
+3. Set up environment variables (see `.env.example` below)
+4. Run the application: `uvicorn src.main:app --reload`
 
-```bash
-cd src
-python -m todo_app.main
+### Frontend Setup
+1. Navigate to the frontend directory: `cd frontend`
+2. Install dependencies: `npm install`
+3. Set up environment variables (see `.env.local.example` below)
+4. Run the development server: `npm run dev`
+
+### Environment Variables
+
+#### Backend (.env)
+```env
+DATABASE_URL=postgresql://username:password@localhost:5432/todo_app
+SECRET_KEY=your-super-secret-jwt-key-change-in-production
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-## Folder Structure
-
-```
-src/
-├── todo_app/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── services/
-│   │   ├── __init__.py
-│   │   └── todo_service.py
-│   ├── models/
-│   │   ├── __init__.py
-│   │   └── task.py
-│   └── utils/
-│       ├── __init__.py
-│       └── utils.py
-specs/
-README.md
-CLAUDE.md
+#### Frontend (.env.local)
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
-## How to Use
+## API Endpoints
 
-1. Run the application as shown above
-2. Choose an option from the menu:
-   - 1: Add a new task
-   - 2: View all tasks
-   - 3: Update an existing task
-   - 4: Delete a task
-   - 5: Mark a task as complete
-   - 6: Mark a task as incomplete
-   - 7: View completed tasks
-   - 8: View pending tasks
-   - 0: Exit the application
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Log in an existing user
+
+### Todo Operations
+- `GET /api/todos` - Get all todos for the authenticated user
+- `POST /api/todos` - Create a new todo
+- `GET /api/todos/{id}` - Get a specific todo
+- `PUT /api/todos/{id}` - Update a specific todo
+- `PATCH /api/todos/{id}/complete` - Toggle completion status
+- `DELETE /api/todos/{id}` - Delete a specific todo
 
 ## Architecture
 
-- `models/task.py`: Defines the Task data model
-- `services/todo_service.py`: Contains the business logic for managing tasks
-- `utils/utils.py`: Provides utility functions for formatting and validation
-- `main.py`: Implements the console interface and user interaction
+The application follows a clean architecture with:
 
-## Design Decisions
+- **Models** in `backend/src/models/` - Define data structures
+- **Services** in `backend/src/services/` - Business logic
+- **API Routes** in `backend/src/api/` - Expose functionality via REST endpoints
+- **Middleware** in `backend/src/middleware/` - Handle authentication and authorization
+- **Components** in `frontend/src/components/` - Reusable UI elements
+- **Pages** in `frontend/src/app/` - Define application routes and views
 
-- All imports are relative to the `todo_app` package
-- Tasks are stored in memory for simplicity
-- The application follows a service-oriented architecture
-- Input validation is performed to ensure data integrity
+## Security
+
+- JWT tokens for authentication
+- User-based authorization to ensure data isolation
+- Password hashing with bcrypt
+- Input validation and sanitization
+
+## Development
+
+This project was generated using the Spec-Driven Development methodology with Claude Code. All features are traceable to specifications in the `specs/` directory.
+
+## License
+
+MIT

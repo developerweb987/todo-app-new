@@ -50,3 +50,24 @@ htmlcov/
 
 # Pytest
 .pytest_cache/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/.env*
+frontend/.env.local
+frontend/.env.production
+frontend/.env.development
+
+# Backend
+backend/.env
+backend/*.db
+backend/__pycache__/
+backend/*/__pycache__/
+backend/*.pyc
+backend/*/*.pyc
