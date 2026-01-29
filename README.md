@@ -44,23 +44,6 @@ A secure, multi-user todo application with persistent storage and JWT authentica
 3. Set up environment variables (see `.env.local.example` below)
 4. Run the development server: `npm run dev`
 
-### Environment Variables
-
-#### Backend (.env)
-```env
-DATABASE_URL=postgresql://username:password@localhost:5432/todo_app
-SECRET_KEY=your-super-secret-jwt-key-change-in-production
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-```
-
-#### Frontend (.env.local)
-```env
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
-```
-
-## API Endpoints
-
 ### Authentication
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Log in an existing user
