@@ -1,13 +1,14 @@
 from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import Response, JSONResponse
 from fastapi.exceptions import HTTPException
+from starlette.middleware.cors import CORSMiddleware  # ✅ starlette middleware for Vercel
 from .api.auth_router import router as auth_router
 from .api.todo_router import router as todo_router
 from .database.database import engine
 from .models.user import User
 from .models.todo_task import TodoTask
 from sqlmodel import SQLModel
+import base64
 
 # Create FastAPI app instance
 app = FastAPI(
@@ -16,54 +17,53 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Startup event: create database tables
 @app.on_event("startup")
 def on_startup():
-    # Create database tables
     try:
         SQLModel.metadata.create_all(engine)
         print("Database tables created successfully")
     except Exception as e:
         print(f"Error creating database tables: {str(e)}")
-        # Don't raise here as it might prevent the app from starting
 
-# ✅ Add CORS middleware with frontend and local dev URLs
+# ✅ CORS middleware for frontend and local dev
 origins = [
     "https://todo-app-new-nine.vercel.app",  # Production frontend
-    "http://localhost:3000"                    # Local frontend development
+    "http://localhost:3000"                    # Local frontend
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["*"],  # GET, POST, PUT, DELETE, OPTIONS
     allow_headers=["*"],
 )
 
+# Root endpoint
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Todo API"}
 
+# Health check
 @app.get("/health")
 def health_check():
     return {"status": "healthy", "service": "todo-api"}
 
+# Favicon
 @app.get("/favicon.ico", include_in_schema=False)
 def favicon():
-    import base64
     favicon_base64 = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAALklEQVR42mNk+A+EFBgYGBhoyBkGgECCjoGBgZEBCBTQyBkAVL0DAZhVqzMAAAAASUVORK5CYII="
     favicon_bytes = base64.b64decode(favicon_base64)
     return Response(content=favicon_bytes, media_type="image/x-icon", headers={"Cache-Control": "public, max-age=86400"})
 
 @app.head("/favicon.ico", include_in_schema=False)
 def favicon_head():
-    from fastapi.responses import Response
     return Response(headers={"Cache-Control": "public, max-age=86400"})
 
-# Global exception handler
+# Global HTTPException handler
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
-    from fastapi.responses import JSONResponse
     return JSONResponse(
         status_code=exc.status_code,
         content={
@@ -76,9 +76,9 @@ async def http_exception_handler(request: Request, exc: HTTPException):
         }
     )
 
+# Global general Exception handler
 @app.exception_handler(Exception)
 async def general_exception_handler(request: Request, exc: Exception):
-    from fastapi.responses import JSONResponse
     return JSONResponse(
         status_code=500,
         content={
