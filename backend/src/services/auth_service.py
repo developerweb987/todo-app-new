@@ -12,6 +12,7 @@ load_dotenv()
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+MAX_PASSWORD_LENGTH = 72  # ✅ bcrypt limit
 
 # JWT configuration
 SECRET_KEY = os.getenv("SECRET_KEY", "your-super-secret-key-change-in-production")
@@ -21,11 +22,13 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")
 class AuthService:
     @staticmethod
     def verify_password(plain_password: str, hashed_password: str) -> bool:
-        return pwd_context.verify(plain_password, hashed_password)
+        truncated = plain_password[:MAX_PASSWORD_LENGTH]  # ✅ truncate before verify
+        return pwd_context.verify(truncated, hashed_password)
 
     @staticmethod
     def get_password_hash(password: str) -> str:
-        return pwd_context.hash(password)
+        truncated = password[:MAX_PASSWORD_LENGTH]  # ✅ truncate before hashing
+        return pwd_context.hash(truncated)
 
     @staticmethod
     def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
