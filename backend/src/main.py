@@ -28,7 +28,7 @@ def on_startup():
 
 # ✅ Add CORS middleware with frontend and local dev URLs
 origins = [
-    "https://todo-app-new-gamma.vercel.app",  # Production frontend
+    "https://todo-app-new-nine.vercel.app",  # Production frontend
     "http://localhost:3000"                    # Local frontend development
 ]
 
