@@ -29,7 +29,7 @@ def on_startup():
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://todo-app-new-nine.vercel.app"],  # In production, replace with specific origins
+    allow_origins=["https://todo-app-new-gamma.vercel.app"],  # ✅ frontend Vercel URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -45,7 +45,6 @@ def health_check():
 
 @app.get("/favicon.ico", include_in_schema=False)
 def favicon():
-    # Return a minimal transparent 16x16 pixel PNG as favicon
     import base64
     favicon_base64 = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAALklEQVR42mNk+A+EFBgYGBhoyBkGgECCjoGBgZEBCBTQyBkAVL0DAZhVqzMAAAAASUVORK5CYII="
     favicon_bytes = base64.b64decode(favicon_base64)
@@ -53,11 +52,10 @@ def favicon():
 
 @app.head("/favicon.ico", include_in_schema=False)
 def favicon_head():
-    # Return empty response for HEAD requests to favicon
     from fastapi.responses import Response
     return Response(headers={"Cache-Control": "public, max-age=86400"})
 
-# Global exception handler to ensure consistent error format
+# Global exception handler
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
     from fastapi.responses import JSONResponse
