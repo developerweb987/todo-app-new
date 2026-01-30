@@ -4,7 +4,7 @@ class ApiClient {
   private client: AxiosInstance;
   private baseURL: string;
 
-  constructor(baseURL: string = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000') {
+  constructor(baseURL: string = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://todo-app-new-backend.vercel.app') {
     this.baseURL = baseURL;
     this.client = axios.create({
       baseURL: this.baseURL,
