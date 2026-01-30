@@ -12,7 +12,7 @@ load_dotenv()
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-MAX_PASSWORD_LENGTH = 72  # ✅ bcrypt limit
+MAX_PASSWORD_LENGTH = 72  # bcrypt max limit
 
 # JWT configuration
 SECRET_KEY = os.getenv("SECRET_KEY", "your-super-secret-key-change-in-production")
@@ -21,14 +21,16 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")
 
 class AuthService:
     @staticmethod
-    def verify_password(plain_password: str, hashed_password: str) -> bool:
-        truncated = plain_password[:MAX_PASSWORD_LENGTH]  # ✅ truncate before verify
-        return pwd_context.verify(truncated, hashed_password)
+    def get_password_hash(password: str) -> str:
+        # Truncate before hashing to avoid bcrypt >72 bytes error
+        truncated = password[:MAX_PASSWORD_LENGTH]
+        return pwd_context.hash(truncated)
 
     @staticmethod
-    def get_password_hash(password: str) -> str:
-        truncated = password[:MAX_PASSWORD_LENGTH]  # ✅ truncate before hashing
-        return pwd_context.hash(truncated)
+    def verify_password(plain_password: str, hashed_password: str) -> bool:
+        # Truncate before verifying
+        truncated = plain_password[:MAX_PASSWORD_LENGTH]
+        return pwd_context.verify(truncated, hashed_password)
 
     @staticmethod
     def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
@@ -52,7 +54,7 @@ class AuthService:
                 detail="Email already registered"
             )
 
-        # Create new user
+        # Create new user with truncated password
         hashed_password = AuthService.get_password_hash(password)
         db_user = User(
             email=email,
