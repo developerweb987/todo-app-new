@@ -26,10 +26,15 @@ def on_startup():
         print(f"Error creating database tables: {str(e)}")
         # Don't raise here as it might prevent the app from starting
 
-# Add CORS middleware
+# ✅ Add CORS middleware with frontend and local dev URLs
+origins = [
+    "https://todo-app-new-gamma.vercel.app",  # Production frontend
+    "http://localhost:3000"                    # Local frontend development
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://todo-app-new-gamma.vercel.app"],  # ✅ frontend Vercel URL
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
